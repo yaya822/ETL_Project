@@ -1,8 +1,13 @@
 import pandas as pd
 from sqlalchemy import create_engine
 import os 
-import random 
-print(os.getcwd())
+from dotenv import load_dotenv
+load_dotenv()
+db_password=os.getenv("DB_PASSWORD")
+db_driver=os.getenv("DB_DRIVER")
+db_user=os.getenv("DB_USER")
+db_name=os.getenv("DB_NAME")
+
 
 # read data from csvs files 
 employee_df = pd.read_csv("employee_data.csv")
@@ -31,7 +36,7 @@ customers_df.head()
 customers_df.to_csv("customers.csv",index=False)
 
 # connect to mysql 
-# engine = create_engine("mysql+pymysql://datahub:datahub@localhost/insurance_db")
+# engine = create_engine(f"{db_driver}://{db_user}:{db_user}@localhost/{db_name}")
 
 # # insert dataframes as tables to mysql
 # with engine.connect() as conn:
