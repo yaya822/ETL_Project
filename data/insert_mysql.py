@@ -26,11 +26,11 @@ vendor_df = pd.read_csv("../data/vendor.csv")
 
 
 
-engine = create_engine(f"mysql+pymysql://{db_user}:{db_password}@127.0.0.1:{db_port}/{db_name}")
+engine = create_engine(f"mysql+pymysql://{db_user}:{db_password}@172.18.0.2:{db_port}/{db_name}")
 
 
 with engine.connect() as conn:
-    customers_df.to_sql("customers", con=conn, if_exists="replace", index=False)
+    #customers_df.to_sql("customers", con=conn, if_exists="replace", index=False)
     employee_df.to_sql("employee", con=conn, if_exists="replace", index=False)
-    vendor_df.to_sql("vendor", con=conn, if_exists="replace", index=False)
-    insurance_df.to_sql("insurance", con=conn, if_exists="replace", index=False)
+    #vendor_df.to_sql("vendor", con=conn, if_exists="replace", index=False)
+    # insurance_df.to_sql("insurance", con=conn, if_exists="replace", index=False)

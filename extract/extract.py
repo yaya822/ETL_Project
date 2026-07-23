@@ -8,14 +8,15 @@ load_dotenv()
 db_name = os.getenv("DB_NAME")
 db_user = os.getenv("DB_USER")
 db_password = os.getenv("DB_PASSWORD")
+
 db_port = os.getenv("DB_PORT")
 
 
 
 def connect_to_mysql():
     try:
-        engine = create_engine(f"mysql+pymysql://{db_user}:YAHYA@172.18.0.3:{db_port}/{db_name}")
-        print(engine)
+        engine = create_engine(f"mysql+pymysql://{db_user}:{db_password}@172.18.0.2:{db_port}/{db_name}")
+        
     except:
         print("ERROR IN CONNECTION WITH DATABASE")
     return engine
