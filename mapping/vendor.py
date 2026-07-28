@@ -1,5 +1,6 @@
-import pandas as pd
 import random
+
+import pandas as pd
 
 vendor_db=pd.read_csv("../insert_to_mysql/vendor_data.csv")
 vendor_db.head()

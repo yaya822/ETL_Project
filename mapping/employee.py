@@ -1,5 +1,6 @@
+import random
+
 import pandas as pd
-import random 
 
 employee_db=pd.read_csv("../insert_to_mysql/employee_data.csv")
 employee_db.head()

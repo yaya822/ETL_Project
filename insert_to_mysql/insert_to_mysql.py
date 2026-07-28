@@ -1,7 +1,8 @@
+import os
+
 import pandas as pd
-from sqlalchemy import create_engine
-import os 
 from dotenv import load_dotenv
+
 load_dotenv()
 db_password=os.getenv("DB_PASSWORD")
 db_driver=os.getenv("DB_DRIVER")
@@ -20,10 +21,10 @@ vendor_df
 insurance_df
 
 #create customers  dataframe 
-customers_df=insurance_df[["CUSTOMER_ID","CUSTOMER_NAME","SSN","AGE","CUSTOMER_EDUCATION_LEVEL","ADDRESS_LINE1","ADDRESS_LINE2","CITY","POSTAL_CODE","MARITAL_STATUS","NO_OF_FAMILY_MEMBERS","EMPLOYMENT_STATUS","HOUSE_TYPE"]]
+customers_df=insurance_df[["CUSTOMER_ID","CUSTOMER_NAME","SSN","AGE","CUSTOMER_EDUCATION_LEVEL","ADDRESS_LINE1","ADDRESS_LINE2","CITY","POSTAL_CODE","MARITAL_STATUS","NO_OF_FAMILY_MEMBERS","EMPLOYMENT_STATUS","HOUSE_TYPE","ROUTING_NUMBER","SOCIAL_CLASS"]]
 
 # delete columns from dataframes 
-insurance_df=insurance_df.drop(columns=["CUSTOMER_NAME","SSN","AGE","CUSTOMER_EDUCATION_LEVEL","ADDRESS_LINE1","ADDRESS_LINE2","CITY","POSTAL_CODE","MARITAL_STATUS","NO_OF_FAMILY_MEMBERS","HOUSE_TYPE","EMPLOYMENT_STATUS"])
+insurance_df=insurance_df.drop(columns=["CUSTOMER_NAME","SSN","AGE","CUSTOMER_EDUCATION_LEVEL","ADDRESS_LINE1","ADDRESS_LINE2","CITY","POSTAL_CODE","MARITAL_STATUS","NO_OF_FAMILY_MEMBERS","HOUSE_TYPE","EMPLOYMENT_STATUS","TENURE","ROUTING_NUMBER","SOCIAL_CLASS"])
 del vendor_df["STATE"]
 del employee_df["STATE"]
 

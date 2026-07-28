@@ -1,4 +1,4 @@
-import pandas as pd 
+import pandas as pd
 
 insurance_db=pd .read_csv("../insert_to_mysql/insurance_data.csv")
 insurance_db.head()
