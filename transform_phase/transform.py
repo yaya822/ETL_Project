@@ -4,10 +4,6 @@ sys.path.append("/home/guest/Desktop/ETL")
 
 import pandas as pd
 
-from extract_phase.extract import extract_data
-
-customers, vendor, employee, insurance = extract_data()
-
 
 # transform the customers table
 def transfrom_customer(customers):
@@ -113,19 +109,9 @@ def transform_insurance(insurance):
     insurance.columns.to_list()
     del insurance["TENURE"]
     del insurance["SOCIAL_CLASS"]
-   
 
     insurance.head(10)
 
     return insurance
 
 
-customers = transfrom_customer(customers)
-employee = transform_employee(employee)
-insurance = transform_insurance(insurance)
-vendor = transform_vendor(vendor)
-
-print(insurance["POLICY_EFF_DT"].head(10))
-print(insurance["LOSS_DT"].head(10))
-print(insurance["REPORT_DT"].head(10))
-print(insurance["TXN_DATE_TIME"].head(10))

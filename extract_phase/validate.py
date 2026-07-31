@@ -8,7 +8,7 @@ import pandas as pd
 from extract_phase.extract import connect_to_mysql, extract_data
 
 conn = connect_to_mysql()
-customers, vendor, employee, insurance = extract_data()
+customers, vendor, employee, insurance = extract_data(conn)
 
 logger = logging.getLogger(__name__)
 
@@ -20,12 +20,20 @@ def validate(customers, vendor, employee, insurance):
     if customers.empty or vendor.empty or employee.empty or insurance.empty:
         logger.error("One or more extracted DataFrames are empty.")
         raise ValueError("One or more extracted DataFrames are empty.")
-    
-    nbr_rows_customers = pd.read_sql("select count(*) from customers", conn)["count(*)"].iloc[0]
 
-    nbr_rows_vendor = pd.read_sql("select count(*) from vendor", conn)["count(*)"].iloc[0]
-    nbr_rows_employee = pd.read_sql("select count(*) from   employee", conn)["count(*)"].iloc[0]
-    nbr_rows_insurance = pd.read_sql("select count(*) from  insurance", conn)["count(*)"].iloc[0]
+    nbr_rows_customers = pd.read_sql("select count(*) from customers", conn)[
+        "count(*)"
+    ].iloc[0]
+
+    nbr_rows_vendor = pd.read_sql("select count(*) from vendor", conn)["count(*)"].iloc[
+        0
+    ]
+    nbr_rows_employee = pd.read_sql("select count(*) from   employee", conn)[
+        "count(*)"
+    ].iloc[0]
+    nbr_rows_insurance = pd.read_sql("select count(*) from  insurance", conn)[
+        "count(*)"
+    ].iloc[0]
 
     logger.info("Checking extracted rows counts... ")
     if (
@@ -65,31 +73,30 @@ def validate(customers, vendor, employee, insurance):
         "datetime": "datetime64[ns]",
     }
 
-    def validate_dtypes(df,describe_df):
+    def validate_dtypes(df, describe_df):
         expected_type = []
         actual_type = []
-        
+
         for column in describe_df["Type"]:
-                base_type = column.split("(")[0].strip().lower()
-        
-                pandas_type = mysql_to_pandas.get(base_type, "object")
-        
-                expected_type.append(pandas_type)
-        
+            base_type = column.split("(")[0].strip().lower()
+
+            pandas_type = mysql_to_pandas.get(base_type, "object")
+
+            expected_type.append(pandas_type)
+
         for column in df.columns:
-                dtype_str = str(df[column].dtype)
-                actual_type.append(dtype_str)
+            dtype_str = str(df[column].dtype)
+            actual_type.append(dtype_str)
         if actual_type != expected_type:
-                logger.error("Different datatype extracted ")
-                raise ValueError("Different datatype extracted ")
+            logger.error("Different datatype extracted ")
+            raise ValueError("Different datatype extracted ")
 
     logger.info("Checking Data type ... ")
 
-    validate_dtypes(customers,db_customer_columns)
-    validate_dtypes(employee,db_employe_columns)
-    validate_dtypes(vendor,db_vendor_columns)
-    validate_dtypes(insurance,db_insurance_columns)
-
+    validate_dtypes(customers, db_customer_columns)
+    validate_dtypes(employee, db_employe_columns)
+    validate_dtypes(vendor, db_vendor_columns)
+    validate_dtypes(insurance, db_insurance_columns)
 
     # check unicite of primary key in each tables
     logger.info("Checking Unicite of primary key ... ")
@@ -110,5 +117,6 @@ def validate(customers, vendor, employee, insurance):
         logger.error("Validation failed: found  duplicate insurance IDs.")
         raise ValueError("Validation failed: found  duplicate insurance IDs.")
 
-
     logger.info("Validation completed successfully.")
+
+    return customers, vendor, employee, insurance
