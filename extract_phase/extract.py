@@ -10,7 +10,7 @@ db_name = os.getenv("DB_NAME")
 db_user = os.getenv("DB_USER")
 db_password = os.getenv("DB_PASSWORD")
 db_port = os.getenv("DB_PORT")
-db_host = os.getenv("DB_HOST", "127.0.0.1")
+db_host = os.getenv("DB_HOST", "172.18.0.6")
 import logging
 
 logger = logging.getLogger(__name__)
@@ -46,3 +46,5 @@ logging.info(
     "Extraction finished with succes ",
 )
 print("EXTRACTION DONE")
+
+print(extract_data(connect_to_mysql()))
