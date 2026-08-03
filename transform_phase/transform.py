@@ -43,18 +43,17 @@ def transfrom_customer(customers):
     return new_customers
 
 
-# transfrom the vendor
+#transfrom the vendor
 def transform_vendor(vendor):
     vendor.head(10)
     vendor.rename(columns={"ADDRESS_LINE1": "ADDRESS_LINE"}, inplace=True)
-
+    vendor["VENDOR_ID"]=vendor["VENDOR_ID"].astype(str)
     vendor.isnull().sum()
     vendor.dropna(subset=["CITY"], inplace=True)
     del vendor["Unnamed: 0"]
 
     duplicates_rows = vendor.duplicated().sum()
     print(f"{duplicates_rows} duplicated rows")
-
     new_vendor = vendor.drop_duplicates()
     len(new_vendor)
     return new_vendor
@@ -106,6 +105,7 @@ def transform_insurance(insurance):
         years=3
     )
 
+    insurance["VENDOR_ID"]=insurance["VENDOR_ID"].astype(str)
     insurance.columns.to_list()
     del insurance["TENURE"]
     del insurance["SOCIAL_CLASS"]
@@ -113,5 +113,4 @@ def transform_insurance(insurance):
     insurance.head(10)
 
     return insurance
-
 

@@ -10,7 +10,7 @@ db_name = os.getenv("DB_NAME")
 db_user = os.getenv("DB_USER")
 db_password = os.getenv("DB_PASSWORD")
 db_port = os.getenv("DB_PORT")
-db_host = os.getenv("DB_HOST", "172.18.0.6")
+db_host = os.getenv("DB_HOST","datahub-mysql-1")
 import logging
 
 logger = logging.getLogger(__name__)
@@ -32,7 +32,6 @@ def connect_to_mysql():
 
 
 def extract_data(engine):
-    # read tables from database
     with engine.connect() as conn:
         customers_df = pd.read_sql("SELECT * FROM customers", conn)
         vendor_df = pd.read_sql("SELECT * FROM vendor", conn)
@@ -46,5 +45,3 @@ logging.info(
     "Extraction finished with succes ",
 )
 print("EXTRACTION DONE")
-
-print(extract_data(connect_to_mysql()))
