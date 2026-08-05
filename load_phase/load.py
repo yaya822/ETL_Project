@@ -13,7 +13,7 @@ from extract_phase.validate import validate
 from transform_phase.transform import (
     transform_employee,
     transform_insurance,
-    #transform_vendor,
+    transform_vendor,
     transfrom_customer,
 )
 
@@ -33,7 +33,7 @@ def load():
     customer,vendor,employee,insurance= extract_data(engine)
     customer,vendor,employee,insurance=validate(customer,vendor,employee,insurance)
     customer=transfrom_customer(customer)
-    # vendor=transform_vendor(vendor)
+    vendor=transform_vendor(vendor)
     employee=transform_employee(employee)
     insurance=transform_insurance(insurance)
 
@@ -43,4 +43,4 @@ def load():
         customer.to_sql("customers_confirmed",con=conn,if_exists="replace",index=False)
         vendor.to_sql("vendors_confirmed",con=conn,if_exists="replace",index=False)
         employee.to_sql("employees_confirmed",con=conn,if_exists="replace",index=False)
-        customer.to_sql("insurance_confirmed",con=conn,if_exists="replace",index=False)
+        insurance.to_sql("insurance_confirmed",con=conn,if_exists="replace",index=False)

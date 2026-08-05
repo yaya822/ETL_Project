@@ -35,6 +35,8 @@ def transfrom_customer(customers):
     invalide_age = customers[customers["AGE"] <= 0]
     print(f"{len(invalide_age)} ivalide age ")
 
+    customers.drop(customers[(customers["AGE"]<=0)].index,inplace=True)
+
     for dp in customers.duplicated().to_list():
         if dp == True:
             print("duplicated rows ")
