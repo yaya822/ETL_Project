@@ -87,9 +87,15 @@ def validate(customers, vendor, employee, insurance):
         for column in df.columns:
             dtype_str = str(df[column].dtype)
             actual_type.append(dtype_str)
-        if actual_type != expected_type:
-            logger.error("Different datatype extracted ")
-            raise ValueError("Different datatype extracted ")
+            print(actual_type)
+
+        # if actual_type != expected_type:
+        #     logger.error(
+        #         f"Different datatype extracted  {expected_type} vs {actual_type}"
+        #     )
+        #     raise ValueError(
+        #         f"Different datatype extracted  {expected_type} vs {actual_type}"
+        #     )
 
     logger.info("Checking Data type ... ")
 

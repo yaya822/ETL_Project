@@ -59,7 +59,8 @@ def transform():
 def load_to_db():
     print("Loading data ...")
     logger.info("Loading data ...")
-    load()
+    customers, employee, vendor, insurance = transform()
+    load(customers, employee, vendor, insurance)
 
 
 default_args = {
